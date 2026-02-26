@@ -33,7 +33,7 @@ export default function Hero() {
                         </p>
 
                         <Link
-                            href="#archive"
+                            href="explore"
                             className="group inline-flex items-center gap-4 bg-transparent border border-neutral-300 rounded-full px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] transition-all duration-500 ease-out"
                             onMouseEnter={() => typeof window !== 'undefined' && window.dispatchEvent(new Event("explore-enter"))}
                             onMouseLeave={() => typeof window !== 'undefined' && window.dispatchEvent(new Event("explore-leave"))}

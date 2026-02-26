@@ -9,7 +9,7 @@ export default function Navigation() {
                 </Link>
                 <div className="hidden md:flex gap-10 text-xs tracking-[0.2em] uppercase font-medium text-neutral-600">
                     <Link href="#mission" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full">Nasz Cel</Link>
-                    <Link href="#archive" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full">Baza</Link>
+                    <Link href="explore" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full">Baza</Link>
                     <Link href="#about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full">O nas</Link>
                 </div>
                 <button className="md:hidden text-sm uppercase tracking-widest text-[#1a1a1a]">Menu</button>

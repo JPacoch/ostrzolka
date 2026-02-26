@@ -339,6 +339,8 @@ export default function ThreeBackground() {
         const planeZ0 = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         const targetVector = new THREE.Vector3();
 
+        let animationFrameId: number;
+
         const tick = () => {
             const elapsedTime = clock.getElapsedTime();
             material.uniforms.uTime.value = elapsedTime;
@@ -354,7 +356,7 @@ export default function ThreeBackground() {
             }
 
             renderer.render(scene, camera);
-            requestAnimationFrame(tick);
+            animationFrameId = requestAnimationFrame(tick);
         };
 
         tick();
@@ -369,6 +371,7 @@ export default function ThreeBackground() {
         window.addEventListener("resize", onResize);
 
         return () => {
+            cancelAnimationFrame(animationFrameId);
             window.removeEventListener("resize", onResize);
             window.removeEventListener("pointermove", onPointerMove);
             window.removeEventListener("pointerleave", onPointerLeave);

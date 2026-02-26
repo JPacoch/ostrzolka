@@ -1,46 +1,60 @@
+import Link from "next/link";
+
 export default function Footer() {
     return (
-        <footer className="bg-white border-t border-neutral-100 py-20 px-6">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <footer className="bg-white border-t border-neutral-100 pt-20 px-6 sm:px-12     overflow-hidden">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 mb-24">
 
-                <div className="md:col-span-2">
-                    <h2 className="font-serif text-3xl tracking-tight text-[#1a1a1a] mb-6">
-                        Ostrzółka.
-                    </h2>
-                    <p className="text-sm text-neutral-500 max-w-sm leading-relaxed mb-8">
+                {/* Left Side: Tagline */}
+                <div className="max-w-md">
+                    <p className="font-sans text-3xl md:text-1xl text-[#1a1a1a] leading-tight font-medium mb-50">
                         Wirtualne archiwum bydgoskiej historii.
+                    </p>
+                    <p className="font-sans text-1xl md:text-xs text-neutral-400 leading-tight font-medium mb-2">
+                        Napisz do nas
+                    </p>
+                    <p className="font-sans text-1xl md:text-1xl text-neutral-400 leading-tight font-medium mb-2">
+                        ostrzolkabydgoszcz@gmail.com
                     </p>
                 </div>
 
-                {/* <div>
-                    <h3 className="text-xs uppercase tracking-widest font-semibold text-[#1a1a1a] mb-6">Index</h3>
-                    <ul className="space-y-4 text-sm text-neutral-500 flex flex-col items-start">
-                        <li><a href="#about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-black hover:after:w-full after:transition-all">Mission</a></li>
-                        <li><a href="#archive" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-black hover:after:w-full after:transition-all">Preview</a></li>
-                        <li><a href="#crowdfunding" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-black hover:after:w-full after:transition-all">Support</a></li>
-                    </ul>
-                </div> */}
+                {/* Right Side: Navigation & Socials */}
+                <div className="flex flex-col sm:flex-row gap-12 sm:gap-44">
+                    <div className="flex flex-col space-y-4 text-sm text-[#1a1a1a] font-medium tracking-wide">
+                        <span className="text-xs uppercase tracking-[0.2em] text-neutral-400 mb-5 font-bold">Social Media</span>
+                        <a href="#" className="group flex items-center w-fit hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all hover:after:w-full">
+                            Instagram
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                        <a href="#" className="group flex items-center w-fit hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all hover:after:w-full">
+                            Facebook
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5 ml-1 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </a>
+                        <span className="text-neutral-500 font-normal mt-auto pt-4">Bydgoszcz—Polska</span>
+                    </div>
 
-                {/* <div>
-                    <h3 className="text-xs uppercase tracking-widest font-semibold text-[#1a1a1a] mb-6">Newsletter</h3>
-                    <p className="text-xs text-neutral-400 mb-4">Receive updates on our digitization progress.</p>
-                    <form className="flex gap-2 relative">
-                        <input type="email" placeholder="Email address" className="bg-neutral-50 w-full px-4 py-3 rounded-full text-sm outline-none border border-neutral-200 focus:border-neutral-400 transition-colors" />
-                        <button type="submit" className="absolute right-1 top-1 bottom-1 bg-[#1a1a1a] text-white px-4 rounded-full text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors">
-                            Join
-                        </button>
-                    </form>
-                </div> */}
+                    <div className="flex flex-col space-y-4 text-sm text-[#1a1a1a] font-medium tracking-wide">
+                        <span className="text-xs uppercase tracking-[0.2em] text-neutral-400 mb-5 font-bold">Menu</span>
+                        <Link href="/about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full w-fit">Nasz cel</Link>
+                        <Link href="/about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full w-fit">Archiwum</Link>
+                        <Link href="/about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full w-fit">O nas</Link>
+                        <Link href="/about" className="hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] auto after:bg-black after:transition-all hover:after:w-full w-fit mb-30">Kontakt</Link>
+                        <span className="text-neutral-500 font-normal mt-auto pt-4">&copy; {new Date().getFullYear()} Ostrzółka</span>
+                    </div>
+                </div>
 
             </div>
 
-            <div className="max-w-7xl mx-auto border-t border-neutral-100 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-400 gap-4">
-                <p>&copy; {new Date().getFullYear()} Ostrzółka. All rights reserved.</p>
-                <div className="flex gap-6">
-                    <a href="#" className="hover:text-black transition-colors">Instagram</a>
-                    <a href="#" className="hover:text-black transition-colors">Facebook</a>
-                    <a href="#" className="hover:text-black transition-colors">Kontakt</a>
-                </div>
+            {/* Bottom Section: Massive Brand Name */}
+            {/* Bottom Section: Massive Brand Name */}
+            <div className="w-full flex justify-center items-end mt-auto border-t border-neutral-100 overflow-hidden">
+                <h2 className="font-serif text-[clamp(4rem,18.5vw,25rem)] leading-[0.99] tracking-tight text-[#1a1a1a] whitespace-nowrap select-none translate-y-[14%]">
+                    Ostrzółka
+                </h2>
             </div>
         </footer>
     );

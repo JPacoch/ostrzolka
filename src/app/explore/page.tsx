@@ -5,79 +5,7 @@ import { Search, ChevronDown, ChevronLeft, ChevronRight, Filter } from "lucide-r
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// Mock Data
-const MOCK_DOCUMENTS = [
-    {
-        id: "doc-01",
-        title: "Miejski Plan Zagospodarowania z 1923 r.",
-        description: "Detailed blueprints charting the early 20th-century expansion of the city limits, featuring original street names and property bounds.",
-        tags: ["Cadastral Maps", "Archived"],
-        date: "1923",
-    },
-    {
-        id: "doc-02",
-        title: "Zarządzenie Wojewody o Wcieleniu Ziem",
-        description: "Official provincial decree detailing the administrative incorporation of the surrounding agricultural lands into the urban grid.",
-        tags: ["Legal", "Decree"],
-        date: "1928",
-    },
-    {
-        id: "doc-03",
-        title: "Korespondencja Burmistrza ws. Budowy Wodociągów",
-        description: "A collection of 15 handwritten letters from the mayor negotiating the construction of the central municipal waterworks system.",
-        tags: ["Internal", "Letters"],
-        date: "1931",
-    },
-    {
-        id: "doc-04",
-        title: "Projekt Architektoniczny Ratusza Głównego",
-        description: "Original scaled architectural drawings for the main city hall including cross-sections of the clock tower and assembly chambers.",
-        tags: ["Architecture", "Archived"],
-        date: "1895",
-    },
-    {
-        id: "doc-05",
-        title: "Rejestr Podatkowy Kupców i Rzemieślników",
-        description: "Ledger containing the tax records of local merchants, artisans, and trade guilds operating within the market square.",
-        tags: ["Ledger", "Economic"],
-        date: "1912",
-    },
-    {
-        id: "doc-06",
-        title: "Kronika Parafialna Kościoła Św. Trójcy",
-        description: "Parish chronicle detailing births, marriages, and significant local events recorded by the residing clergy.",
-        tags: ["Parish Records", "Archived"],
-        date: "1880-1910",
-    },
-    {
-        id: "doc-07",
-        title: "Głos Ostrzółki - Wydanie Specjalne",
-        description: "Typeset newspaper broadside announcing the arrival of the first electric tram line connecting the eastern districts.",
-        tags: ["Press", "Public"],
-        date: "1905",
-    },
-    {
-        id: "doc-08",
-        title: "Raport Sanitarnego Inspektora Miejskiego",
-        description: "A comprehensive health and sanitation report surveying the living conditions in the riverside tenement blocks.",
-        tags: ["Internal", "Health"],
-        date: "1921",
-    },
-    {
-        id: "doc-09",
-        title: "Zezwolenia Budowlane dla Cechu Rzeźników",
-        description: "Permit applications and signed authorizations for the reconstruction of the slaughterhouse district after the great fire.",
-        tags: ["Legal", "Permits"],
-        date: "1878",
-    },
-    {
-        id: "doc-10",
-        title: "Testament Hrabiego Włodzimierza",
-        description: "Probated will and testament endowing the city with the western forests to be preserved as a public park.",
-        tags: ["Legal", "Testament"],
-        date: "1901",
-    },
-];
+import { MOCK_DOCUMENTS } from "@/lib/mock-data";
 
 export default function DocumentExplorer() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -151,8 +79,9 @@ export default function DocumentExplorer() {
                 {/* Document List */}
                 <div className="flex flex-col gap-6 mb-16">
                     {MOCK_DOCUMENTS.map((doc) => (
-                        <div
+                        <Link
                             key={doc.id}
+                            href={`/explore/${doc.id}`}
                             className="bg-white rounded-[2rem] p-8 shadow-sm border border-neutral-100 flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
                         >
                             {/* Internal lo-fi texture for cards */}
@@ -160,15 +89,20 @@ export default function DocumentExplorer() {
 
                             <div className="relative z-10 flex flex-col h-full">
                                 <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-4 mb-4">
-                                    <h2 className="font-serif text-2xl text-[#1a1a1a] tracking-tight group-hover:text-neutral-600 transition-colors">
-                                        {doc.title}
-                                    </h2>
+                                    <div className="flex flex-col">
+                                        <h2 className="font-serif text-2xl text-[#1a1a1a] tracking-tight group-hover:text-neutral-600 transition-colors">
+                                            {doc.address}
+                                        </h2>
+                                        {doc.name && (
+                                            <span className="text-sm font-medium text-neutral-400 mt-1">{doc.name}</span>
+                                        )}
+                                    </div>
                                     <span className="shrink-0 text-xs font-medium text-neutral-400 border border-neutral-200 rounded-full px-3 py-1">
-                                        {doc.date}
+                                        {doc.year}
                                     </span>
                                 </div>
 
-                                <p className="text-sm text-neutral-500 leading-relaxed font-light mb-8 max-w-2xl">
+                                <p className="text-sm text-neutral-500 leading-relaxed font-light mb-8 max-w-2xl line-clamp-2">
                                     {doc.description}
                                 </p>
 
@@ -183,7 +117,7 @@ export default function DocumentExplorer() {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 

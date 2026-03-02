@@ -26,13 +26,13 @@ const SlotText = ({ text }: { text: string }) => {
                     className="relative overflow-hidden inline-flex"
                 >
                     <span
-                        className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2"
+                        className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/1"
                         style={{ transitionDelay: `${index * 30}ms` }}
                     >
                         {/* Front face letter */}
                         <span>{char === " " ? "\u00A0" : char}</span>
                         {/* Hover reveal letter (the "next" slot) */}
-                        <span className="text-neutral-400 absolute top-full left-0">{char === " " ? "\u00A0" : char}</span>
+                        <span className="text-neutral-200 absolute top-full left-0">{char === " " ? "\u00A0" : char}</span>
                     </span>
                 </span>
             ))}
@@ -115,7 +115,7 @@ export default function MegaMenu({ isOpen, setIsOpen }: MegaMenuProps) {
                             <div className="mega-menu-link-wrapper">
                                 <Link
                                     href={item.href}
-                                    className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none inline-block group"
+                                    className="font-serif text-neutral-500 text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none inline-block group"
                                     onClick={() => setIsOpen(false)}
                                     onMouseEnter={() => setHoveredIndex(i)}
                                 >

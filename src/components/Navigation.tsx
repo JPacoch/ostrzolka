@@ -4,6 +4,29 @@ import { useState } from "react";
 import Link from "next/link";
 import MegaMenu from "./MegaMenu";
 
+const SlotText = ({ text }: { text: string }) => {
+    return (
+        <span className="flex">
+            {text.split("").map((char, index) => (
+                <span
+                    key={index}
+                    className="relative overflow-hidden inline-flex"
+                >
+                    <span
+                        className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full"
+                        style={{ transitionDelay: `${index * 30}ms` }}
+                    >
+                        {/* Front face letter */}
+                        <span>{char === " " ? "\u00A0" : char}</span>
+                        {/* Hover reveal letter (the "next" slot) */}
+                        <span className="absolute top-full left-0">{char === " " ? "\u00A0" : char}</span>
+                    </span>
+                </span>
+            ))}
+        </span>
+    );
+};
+
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -21,9 +44,9 @@ export default function Navigation() {
 
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="text-sm uppercase tracking-widest font-medium relative z-[70] hover:opacity-70 transition-opacity"
+                        className="text-sm uppercase tracking-widest font-medium relative z-[70] hover:opacity-70 transition-opacity flex items-center group"
                     >
-                        {isOpen ? "Zamknij" : "Menu"}
+                        <SlotText text={isOpen ? "Zamknij" : "Menu"} />
                     </button>
                 </div>
             </nav>

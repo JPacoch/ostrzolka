@@ -7,7 +7,6 @@ import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger, useGSAP);
-    // Force 3D hardware acceleration for all GSAP transforms globally to prevent lag
     gsap.config({ force3D: true });
 }
 
@@ -15,7 +14,6 @@ export default function AboutPage() {
     const container = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        // 1. Hero Text Letter-by-Letter Pop-up
         gsap.fromTo(".hero-char",
             { yPercent: 100, autoAlpha: 0 },
             {
@@ -32,7 +30,6 @@ export default function AboutPage() {
             }
         );
 
-        // 2. Horizontal Scroll Timeline
         const horizontalContainer = document.querySelector(".horizontal-scroll-container");
         if (horizontalContainer) {
             gsap.to(horizontalContainer, {
@@ -49,7 +46,6 @@ export default function AboutPage() {
             });
         }
 
-        // 3. Dark Section Morph & Text Scrub Lightening
         const darkSectionTl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".dark-section",
@@ -59,7 +55,6 @@ export default function AboutPage() {
             }
         });
 
-        // Morph wrapper to dark
         darkSectionTl.to(".about-page-wrapper", {
             backgroundColor: "#0a0a0a",
             color: "#ffffff",
@@ -67,7 +62,6 @@ export default function AboutPage() {
             duration: 1
         });
 
-        // Scrub text opacity
         gsap.to(".scrub-word", {
             opacity: 1,
             stagger: 0.1,
@@ -80,13 +74,12 @@ export default function AboutPage() {
             }
         });
 
-        // Return to light mode after dark section ends
         ScrollTrigger.create({
             trigger: ".spring-gallery-section",
             start: "top 50%",
             onEnter: () => {
                 gsap.to(".about-page-wrapper", {
-                    backgroundColor: "#f3f4f6", // Match body bg
+                    backgroundColor: "#f3f4f6",
                     color: "#1a1a1a",
                     duration: 0.5,
                     overwrite: "auto"
@@ -102,7 +95,6 @@ export default function AboutPage() {
             }
         });
 
-        // 4. Spring Box Gallery Entrance
         gsap.fromTo(".spring-card",
             { y: 150, opacity: 0, scale: 0.8, rotationZ: 5 },
             {
@@ -122,10 +114,9 @@ export default function AboutPage() {
 
     }, { scope: container });
 
-    const heroText = "O nas";
+    const heroText = "Nasz Cel";
     const scrubText = "Tworzymy przestrzeń, w której historia staje się żywa, namacalna i dostępna dla każdego. Przeszłość miasta to nie tylko zakurzone archiwa, to tętniąca życiem opowieść o ludziach, miejscach i wydarzeniach, które ukształtowały naszą teraźniejszość.";
 
-    // Split text helper to preserve spaces
     const renderHeroChars = (text: string) => {
         return text.split("").map((char, index) => (
             <span key={index} className="hero-char uppercase will-change-transform" style={{ display: 'inline-block', whiteSpace: 'pre' }}>
@@ -141,14 +132,14 @@ export default function AboutPage() {
 
             {/* 1. Hero Section */}
             <section className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center pt-32 px-6">
-                <span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-400 mb-8 z-10">Poznaj Zespół</span>
+                <span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-400 mb-8 z-10">Ostrzółka</span>
                 <h1 className="hero-heading font-serif text-[clamp(6rem,20vw,20rem)] leading-none tracking-tighter text-center overflow-hidden flex z-10">
                     {renderHeroChars(heroText)}
                 </h1>
 
                 {/* Scroll Indicator */}
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-10">
-                    <span className="text-[10px] uppercase tracking-widest font-semibold">Scroll</span>
+                    <span className="text-[10px] lowercase tracking-widest font-semibold">przewiń</span>
                     <div className="w-[1px] h-12 bg-gradient-to-b from-black to-transparent"></div>
                 </div>
             </section>
@@ -205,7 +196,6 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto w-full">
                     <p className="scrub-text font-serif text-3xl md:text-5xl lg:text-7xl leading-[1.3] tracking-tight">
                         {scrubText.split(" ").map((word, index) => {
-                            // Flashy words highlighting
                             const isFlashy = ["żywa,", "namacalna", "tętniąca"].includes(word);
 
                             return (

@@ -51,14 +51,13 @@ export default function CustomCursor({ className }: { className?: string }) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.beginPath();
-            ctx.arc(state.x, state.y, 8, 0, Math.PI * 2);
+            ctx.arc(state.x, state.y, 13, 0, Math.PI * 2);
             ctx.fillStyle = "#ffffff";
             ctx.fill();
 
-            // Outer ring
             ctx.beginPath();
             ctx.arc(state.x, state.y, 24, 0, Math.PI * 2);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
             ctx.lineWidth = 1;
             ctx.stroke();
 

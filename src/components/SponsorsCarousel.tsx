@@ -12,9 +12,9 @@ export default function SponsorsCarousel() {
     const logos = Array(4).fill(baseLogos).flat();
 
     return (
-        <section className="w-full bg-[#f8f9fa] border-t border-neutral-200 py-16 md:py-24 overflow-hidden relative z-10">
-            <div className="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">
-                <h3 className="font-serif text-3xl md:text-5xl text-[#1a1a1a] tracking-tight">
+        <section className="w-full bg-[#f8f9fa] border-t border-neutral-200 py-16 md:py-8 overflow-hidden relative z-10">
+            <div className="max-w-7xl mx-auto px-6 mb-6 flex justify-center items-end">
+                <h3 className="font-serif text-3xl md:text-3xl text-[#1a1a1a] tracking-tight">
                     Wspierają nas
                 </h3>
             </div>

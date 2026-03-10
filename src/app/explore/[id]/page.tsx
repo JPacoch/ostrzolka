@@ -1,7 +1,6 @@
 import { getAddressById } from "@/lib/addresses";
-import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
+import BackButton from "@/components/BackButton";
 
 export default async function DocumentDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -23,10 +22,7 @@ export default async function DocumentDetail({ params }: { params: Promise<{ id:
             <div className="max-w-5xl mx-auto relative z-10 w-full bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-neutral-100 flex flex-col mt-8">
 
                 {/* Back Button */}
-                <Link href="/explore" className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-[#1a1a1a] transition-colors self-start mb-8 font-medium">
-                    <ChevronLeft className="w-4 h-4" />
-                    Wróć do wyników
-                </Link>
+                <BackButton className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-[#1a1a1a] transition-colors self-start mb-8 font-medium" />
 
                 {/* Top Section: Split Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16">
@@ -147,12 +143,7 @@ export default async function DocumentDetail({ params }: { params: Promise<{ id:
 
                 {/* Footer */}
                 <div className="flex justify-start border-t border-neutral-200 pt-8 mt-auto">
-                    <Link
-                        href="/explore"
-                        className="px-6 py-3 border border-neutral-300 rounded-full text-sm font-medium text-neutral-500 hover:text-[#1a1a1a] hover:border-[#1a1a1a] transition-all flex items-center gap-2"
-                    >
-                        ← Wróć do wyników
-                    </Link>
+                    <BackButton className="px-6 py-3 border border-neutral-300 rounded-full text-sm font-medium text-neutral-500 hover:text-[#1a1a1a] hover:border-[#1a1a1a] transition-all flex items-center gap-2" />
                 </div>
 
             </div>

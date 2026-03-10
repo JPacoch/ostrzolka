@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, ChevronDown, ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -12,14 +12,51 @@ interface ExploreClientProps {
 
 const COLLECTIONS = ["Wszystkie typy", "Kamienica", "Kościół", "Budynek publiczny", "Pomnik", "Inne"];
 const PER_PAGE_OPTIONS = [10, 25, 50];
+const SESSION_KEY = "explore-state";
+
+type SavedState = {
+    page: number;
+    q: string;
+    type: string;
+    per: number;
+    scrollY: number;
+};
 
 export default function ExploreClient({ addresses }: ExploreClientProps) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedCollection, setSelectedCollection] = useState(COLLECTIONS[0]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [perPage, setPerPage] = useState(10);
     const [perPageOpen, setPerPageOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCollection, setSelectedCollection] = useState(COLLECTIONS[0]);
+    const [perPage, setPerPage] = useState(10);
     const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        const raw = sessionStorage.getItem(SESSION_KEY);
+        if (!raw) return;
+        sessionStorage.removeItem(SESSION_KEY);
+        try {
+            const saved: SavedState = JSON.parse(raw);
+            setPage(saved.page ?? 1);
+            setSearchQuery(saved.q ?? "");
+            setSelectedCollection(saved.type ?? COLLECTIONS[0]);
+            setPerPage(saved.per ?? 10);
+            requestAnimationFrame(() =>
+                requestAnimationFrame(() => window.scrollTo(0, saved.scrollY ?? 0))
+            );
+        } catch {
+        }
+    }, []);
+
+    const saveState = () => {
+        const state: SavedState = {
+            page,
+            q: searchQuery,
+            type: selectedCollection,
+            per: perPage,
+            scrollY: window.scrollY,
+        };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
+    };
 
     const filtered = addresses.filter((doc) => {
         const q = searchQuery.toLowerCase();
@@ -51,14 +88,19 @@ export default function ExploreClient({ addresses }: ExploreClientProps) {
         setPage(1);
     };
 
+    const handlePerPageChange = (opt: number) => {
+        setPerPage(opt);
+        setPerPageOpen(false);
+        setPage(1);
+    };
+
     return (
         <div className="min-h-screen bg-[#f3f4f6] pt-32 pb-24 px-6 relative">
-            {/* Background Texture */}
             <div className="absolute inset-0 lofi-grain z-0 pointer-events-none opacity-50"></div>
 
             <div className="max-w-4xl mx-auto relative z-10 w-full">
 
-                {/* Header Area */}
+                {/* Header */}
                 <div className="mb-12">
                     <h1 className="font-serif text-4xl md:text-6xl tracking-tight text-[#1a1a1a] mb-4">
                         Wyszukiwarka <span className="italic font-light text-neutral-500">Ostrzółka</span>
@@ -70,7 +112,6 @@ export default function ExploreClient({ addresses }: ExploreClientProps) {
 
                 {/* Search & Filter Bar */}
                 <div className="flex flex-col md:flex-row gap-4 mb-12">
-
                     <div className="flex-1 relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                         <input
@@ -121,9 +162,9 @@ export default function ExploreClient({ addresses }: ExploreClientProps) {
                             <Link
                                 key={doc.id}
                                 href={`/explore/${doc.id}`}
+                                onClick={saveState}
                                 className="bg-white rounded-[2rem] p-8 shadow-sm border border-neutral-100 flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
                             >
-                                {/* Internal lo-fi texture for cards */}
                                 <div className="absolute inset-0 lofi-grain opacity-20 pointer-events-none z-0"></div>
 
                                 <div className="relative z-10 flex flex-col h-full">
@@ -186,7 +227,7 @@ export default function ExploreClient({ addresses }: ExploreClientProps) {
                                     {PER_PAGE_OPTIONS.map(opt => (
                                         <button
                                             key={opt}
-                                            onClick={() => { setPerPage(opt); setPerPageOpen(false); setPage(1); }}
+                                            onClick={() => handlePerPageChange(opt)}
                                             className="w-full text-left px-4 py-3 text-sm text-[#1a1a1a] hover:bg-neutral-50 transition-colors"
                                         >
                                             {opt} na stronę
@@ -237,7 +278,6 @@ export default function ExploreClient({ addresses }: ExploreClientProps) {
                             <ChevronRight className="w-5 h-5" />
                         </button>
                     </div>
-
                 </div>
 
             </div>

@@ -5,3 +5,4 @@ export default async function ExplorePage() {
     const addresses = await getAddresses();
     return <ExploreClient addresses={addresses} />;
 }
+

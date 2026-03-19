@@ -1,6 +1,7 @@
 import { getAddressById } from "@/lib/addresses";
 import { notFound } from "next/navigation";
 import BackButton from "@/components/BackButton";
+import MapImage from "@/components/MapImage";
 
 export default async function DocumentDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -11,8 +12,9 @@ export default async function DocumentDetail({ params }: { params: Promise<{ id:
     }
 
     const hasCoords = address.latitude !== null && address.longitude !== null;
-    const osmUrl = hasCoords
-        ? `https://www.openstreetmap.org/export/embed.html?bbox=${address.longitude! - 0.003},${address.latitude! - 0.002},${address.longitude! + 0.003},${address.latitude! + 0.002}&layer=mapnik&marker=${address.latitude},${address.longitude}`
+    const mapboxToken = process.env.MAPBOX_TOKEN;
+    const mapboxUrl = hasCoords && mapboxToken
+        ? `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/pin-l+1a1a1a(${address.longitude},${address.latitude})/${address.longitude},${address.latitude},15.5,0/800x800@2x?access_token=${mapboxToken}`
         : null;
 
     return (
@@ -75,16 +77,8 @@ export default async function DocumentDetail({ params }: { params: Promise<{ id:
 
                     {/* Right: Map */}
                     <div className="w-full aspect-[4/3] lg:aspect-square rounded-[1.5rem] relative overflow-hidden">
-                        {osmUrl ? (
-                            <iframe
-                                src={osmUrl}
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0, display: "block" }}
-                                title={`Mapa lokalizacji: ${address.addressLabel}`}
-                                loading="lazy"
-                                allowFullScreen
-                            />
+                        {mapboxUrl ? (
+                            <MapImage src={mapboxUrl} alt={`Mapa lokalizacji: ${address.addressLabel}`} />
                         ) : (
                             <div className="w-full h-full bg-neutral-200 lofi-grain grayscale opacity-80 flex items-center justify-center">
                                 <div className="absolute inset-0 bg-neutral-300/50 mix-blend-multiply"></div>
